@@ -2,7 +2,7 @@ import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
-from book_catalog import BookCatalog, Book
+from src.book_catalog import BookCatalog, Book
 
 
 class BookTelegramBot:
@@ -11,7 +11,6 @@ class BookTelegramBot:
         self._user_catalogs = {}
         self._updater = Updater(token=token, use_context=True)
         self._setup_handlers()
-
 
 
     def _get_user_catalog(self, user_id):
