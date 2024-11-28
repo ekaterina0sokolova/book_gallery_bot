@@ -1,5 +1,6 @@
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from book_catalog import BookCatalog, Book
 
@@ -10,6 +11,7 @@ class BookTelegramBot:
         self._user_catalogs = {}
         self._updater = Updater(token=token, use_context=True)
         self._setup_handlers()
+
 
 
     def _get_user_catalog(self, user_id):
@@ -35,12 +37,11 @@ class BookTelegramBot:
         dispatcher.add_handler(CommandHandler('start', self.start_command))
         dispatcher.add_handler(CommandHandler('book_list', self.show_book_list))
         dispatcher.add_handler(CommandHandler('done_books', self.show_read_books))
-        dispatcher.add_handler(CallbackQueryHandler(self.book_action_handler))
+        dispatcher.add_handler(CallbackQueryHandler(self.book_action_handler, pattern='^(?!back_button_clicked).*'))
+        dispatcher.add_handler(CallbackQueryHandler(self.back_button_clicked, pattern='back_button_clicked'))
 
 
     def start_command(self, update, context):
-        user_id = update.effective_user.id
-        catalog = self._get_user_catalog(user_id)
         update.message.reply_text("Добро пожаловать в каталог книг!\n\n/add - добавить книгу в список книг \n/book_list - вывести список книг \n/done_books - вывести список прочитанных книг")
 
 
@@ -72,11 +73,10 @@ class BookTelegramBot:
                 update.message.text
             )
             catalog.add_book(book)
-
-        except:
+            update.message.reply_text("Книга успешно добавлена в каталог!")
+        except Exception as e:
+            print(e)
             update.message.reply_text("Ошибка при добавлении книги.")
-        
-        update.message.reply_text("Книга успешно добавлена в каталог!")            
         
         return ConversationHandler.END
 
@@ -84,18 +84,36 @@ class BookTelegramBot:
     def show_book_list(self, update, context):
         user_id = update.effective_user.id
         catalog = self._get_user_catalog(user_id)
+
         unread_books = catalog.get_unread_books()
+        read_books = catalog.get_read_books()
+        books = catalog.get_all_books()
         
-        if not unread_books:
+        if not books:
             update.message.reply_text("Список книг пуст.")
             return
 
-        keyboard = [
-            [telegram.InlineKeyboardButton(f"{book._title} - {book._author}", callback_data=f"book_{book._id}")]
-            for book in unread_books
-        ]
-        reply_markup = telegram.InlineKeyboardMarkup(keyboard)
-        update.message.reply_text("Выберите книгу:", reply_markup=reply_markup)
+        keyboard = []
+
+        for book in books:
+            if book in unread_books:
+                button_text =  f"{book._title} - {book._author}"                
+            elif book in read_books:
+                button_text =  f"✅ {book._title} - {book._author}"
+
+            keyboard.append([
+                    InlineKeyboardButton(
+                        text=button_text, 
+                        callback_data=f"book_{book._id}"
+                    )
+                ])
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        if update.message is None:
+            context.bot.send_message(chat_id=user_id, text="Выберите книгу:", reply_markup=reply_markup)
+        else:
+            update.message.reply_text("Выберите книгу:", reply_markup=reply_markup)
 
 
     def book_action_handler(self, update, context):
@@ -110,14 +128,21 @@ class BookTelegramBot:
             query.edit_message_text("Книга не найдена.")
             return
 
+        query.answer()
         if action == 'book':
-            keyboard = [
-                [
-                    telegram.InlineKeyboardButton("Удалить книгу", callback_data=f"remove_{book_id}"),
-                    telegram.InlineKeyboardButton("Отметить прочитанной", callback_data=f"read_{book_id}")
+            if book.is_read():
+                keyboard = [
+                    [InlineKeyboardButton("Удалить книгу", callback_data=f"remove_{book_id}")],
+                    [InlineKeyboardButton("Назад", callback_data="back_button_clicked")]
                 ]
-            ]
-            reply_markup = telegram.InlineKeyboardMarkup(keyboard)
+            else:
+                keyboard = [
+                    [InlineKeyboardButton("Удалить книгу", callback_data=f"remove_{book_id}")],
+                    [InlineKeyboardButton("Отметить прочитанной", callback_data=f"read_{book_id}")],
+                    [InlineKeyboardButton("Назад", callback_data="back_button_clicked")]
+                ]
+                
+            reply_markup = InlineKeyboardMarkup(keyboard)
             query.edit_message_text(
                 text=book.get_details(), 
                 reply_markup=reply_markup
@@ -132,6 +157,14 @@ class BookTelegramBot:
                 query.edit_message_text("Книга отмечена как прочитанная.")
             else:
                 query.edit_message_text("Не удалось отметить книгу как прочитанную.")
+
+
+    def back_button_clicked(self, update, context):
+        query = update.callback_query
+
+        query.answer()
+        self.show_book_list(update, context)
+
 
 
     def show_read_books(self, update, context):

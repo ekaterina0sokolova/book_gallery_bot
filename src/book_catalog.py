@@ -6,7 +6,7 @@ from book import *
 class BookCatalog:
     def __init__(self, user_id) -> None:
         self._user_id = user_id
-        self._filename = f'data/{user_id}_book_catalog.json'
+        self._filename = f'../data/{user_id}_book_catalog.json'
         self._books = self._load_books()
 
 
@@ -51,7 +51,11 @@ class BookCatalog:
 
     def get_read_books(self)  -> list:
         return [book for book in self._books if book._is_read]
-
+    
+    
+    def get_all_books(self)  -> list:
+        return [book for book in self._books]
+    
 
     def mark_book_as_read(self, book_id) -> bool:
         book = self.get_book_by_id(book_id)

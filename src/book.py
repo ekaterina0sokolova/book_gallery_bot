@@ -32,12 +32,18 @@ class Book:
         self._read_date = datetime.datetime.now()
 
 
+    def is_read(self):
+        return self._is_read
+
+
     def _validate_title(self):
         return len(self._title) > 0
     
+
     def _validate_author(self):
         return len(self._author) > 0
     
+
     def _validate_tag(self):
         return len(self._tag) > 0
     
