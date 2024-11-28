@@ -26,7 +26,7 @@ class BookTelegramBot:
             states={
                 1: [MessageHandler(Filters.text & ~Filters.command, self.get_book_title)],
                 2: [MessageHandler(Filters.text & ~Filters.command, self.get_book_author)],
-                3: [MessageHandler(Filters.text & ~Filters.command, self.get_book_genre)]
+                3: [MessageHandler(Filters.text & ~Filters.command, self.get_book_tag)]
             },
             fallbacks=[]
         )
@@ -57,11 +57,11 @@ class BookTelegramBot:
 
     def get_book_author(self, update, context):
         context.user_data['book_author'] = update.message.text
-        update.message.reply_text("Введите жанр книги:")
+        update.message.reply_text("Введите тэг (пометку) для книги:")
         return 3
 
 
-    def get_book_genre(self, update, context):
+    def get_book_tag(self, update, context):
         user_id = update.effective_user.id
         catalog = self._get_user_catalog(user_id)
         
