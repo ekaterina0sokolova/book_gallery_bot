@@ -1,12 +1,12 @@
 import json
 import os
 
-from src.book import *
+from book import *
 
 class BookCatalog:
-    def __init__(self, user_id) -> None:
+    def __init__(self, user_id, filename=None) -> None:
         self._user_id = user_id
-        self._filename = f'../data/{user_id}_book_catalog.json'
+        self._filename = filename or f'../data/{user_id}_book_catalog.json'
         self._books = self._load_books()
 
 
