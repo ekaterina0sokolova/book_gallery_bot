@@ -1,2 +1,2 @@
 telegram
-unittests=0.0
+unittests==0.0
