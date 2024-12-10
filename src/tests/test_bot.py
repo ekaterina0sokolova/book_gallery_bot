@@ -11,10 +11,12 @@ class TestBookTelegramBot(unittest.TestCase):
         self.bot_token = BOT_TOKEN
         self.bot = BookTelegramBot(self.bot_token)
 
+
     def test_bot_initialization(self):
         self.assertEqual(self.bot._token, self.bot_token)
         self.assertIsInstance(self.bot._updater, Updater)
         self.assertTrue(hasattr(self.bot, '_user_catalogs'))
+
 
     def test_get_user_catalog(self):
         user_id = 12345
@@ -50,6 +52,7 @@ class TestBookTelegramBot(unittest.TestCase):
             self.assertIn(name, handler_names)
 
 
+    # ат
     def test_start_command(self):
         mock_update = Mock()
         mock_context = Mock()
@@ -61,6 +64,7 @@ class TestBookTelegramBot(unittest.TestCase):
         )
 
 
+    # ат
     @patch('book_catalog.BookCatalog')
     def test_get_book_tag_success(self, mock_book_catalog):
         mock_update = Mock()
@@ -82,6 +86,7 @@ class TestBookTelegramBot(unittest.TestCase):
         self.assertEqual(result, ConversationHandler.END)
 
 
+    # ат
     def test_get_book_tag_failure(self):
         mock_update = Mock()
         mock_context = Mock()

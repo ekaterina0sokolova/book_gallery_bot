@@ -62,6 +62,7 @@ class TestBookCatalog(unittest.TestCase):
                 os.remove(test_filename)
 
 
+    # инт
     def test_add_book(self):
         catalog = BookCatalog(self.user_id, os.path.join(self.test_dir, f'{self.user_id}_book_catalog.json'))
 
@@ -90,6 +91,7 @@ class TestBookCatalog(unittest.TestCase):
         self.assertEqual(reloaded_book._tag, "tag1")
     
 
+    # инт
     def test_save_books(self):
         catalog = BookCatalog(self.user_id, os.path.join(self.test_dir, f'{self.user_id}_book_catalog.json'))
     
@@ -112,6 +114,7 @@ class TestBookCatalog(unittest.TestCase):
             os.remove(f'{self.user_id}_book_catalog.json')
 
 
+    # инт
     def test_get_unread_books(self):
         catalog = BookCatalog(self.user_id, f'{self.user_id}_book_catalog.json')
     
@@ -130,6 +133,7 @@ class TestBookCatalog(unittest.TestCase):
             os.remove(f'{self.user_id}_book_catalog.json')
 
     
+    # инт
     def test_get_read_books(self):
         catalog = BookCatalog(self.user_id, f'{self.user_id}_book_catalog.json')
     
@@ -148,6 +152,7 @@ class TestBookCatalog(unittest.TestCase):
             os.remove(f'{self.user_id}_book_catalog.json')
 
     
+    # инт
     def test_get_all_books(self):
         catalog = BookCatalog(self.user_id, f'{self.user_id}_book_catalog.json')
     
@@ -164,6 +169,7 @@ class TestBookCatalog(unittest.TestCase):
             os.remove(f'{self.user_id}_book_catalog.json')
     
 
+    # инт
     def test_mark_book_as_read(self):
         catalog = BookCatalog(self.user_id, f'{self.user_id}_book_catalog.json')
     
@@ -197,6 +203,7 @@ class TestBookCatalog(unittest.TestCase):
             os.remove(f'{self.user_id}_book_catalog.json')
     
 
+    # инт
     def test_remove_book(self):
         catalog = BookCatalog(self.user_id, f'{self.user_id}_book_catalog.json')
     
@@ -227,6 +234,7 @@ class TestBookCatalog(unittest.TestCase):
             os.remove(f'{self.user_id}_book_catalog.json')
     
 
+    # инт
     def test_get_book_by_id(self):
         catalog = BookCatalog(self.user_id, f'{self.user_id}_book_catalog.json')
     
