@@ -25,6 +25,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: export PYTHONPATH
+        run: |
+          export PYTHONPATH=$(pwd):$PYTHONPATH
+
       - name: cd src
         run: |
           cd src
