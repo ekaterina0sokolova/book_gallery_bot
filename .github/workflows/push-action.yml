@@ -49,10 +49,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: cd src
-        run: |
-          cd src
-
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v3.1.0
         env:
