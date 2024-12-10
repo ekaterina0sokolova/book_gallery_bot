@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from book import Book
+from src.book import Book
 
 
 class TestBook(unittest.TestCase):

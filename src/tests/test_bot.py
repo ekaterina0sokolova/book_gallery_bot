@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import MagicMock, Mock, patch
 from telegram.ext import Updater
-from bot import BookTelegramBot, ConversationHandler
-from book_catalog import BookCatalog
+from src.bot import BookTelegramBot, ConversationHandler
+from src.book_catalog import BookCatalog
 from config import BOT_TOKEN
 
 
