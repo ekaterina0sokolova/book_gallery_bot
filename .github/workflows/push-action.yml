@@ -29,19 +29,11 @@ jobs:
         run: |
           export PYTHONPATH=$(pwd):$PYTHONPATH
 
-      - name: cd src
-        run: |
-          cd src
-
       - name: Run tests with coverage
         run: |
           coverage run -m unittest discover -s src/tests
           coverage report
           coverage xml
-
-      - name: cd ..
-        run: |
-          cd ..
 
       - name: Submit coverage to Coveralls
         env:
