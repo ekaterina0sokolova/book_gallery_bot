@@ -25,8 +25,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Cd src
-      run: cd src
+      - name: cd src
+        run: |
+          cd src
 
       - name: Run tests with coverage
         run: |
@@ -34,8 +35,9 @@ jobs:
           coverage report
           coverage xml
 
-      - name: Cd ..
-      run: cd ..
+      - name: cd ..
+        run: |
+          cd ..
 
       - name: Submit coverage to Coveralls
         env:
