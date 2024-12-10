@@ -1,7 +1,7 @@
 import json
 import os
 
-from book import *
+from src.book import *
 
 class BookCatalog:
     def __init__(self, user_id, filename=None) -> None:

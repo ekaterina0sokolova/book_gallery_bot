@@ -2,7 +2,7 @@ import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
-from book_catalog import BookCatalog, Book
+from src.book_catalog import BookCatalog, Book
 
 
 class BookTelegramBot:
