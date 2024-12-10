@@ -1,4 +1,4 @@
 telegram
 python-telegram-bot
 coverage
-dotenv==0.0.5
+python-dotenv
