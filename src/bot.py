@@ -9,7 +9,7 @@ class BookTelegramBot:
     def __init__(self, token):
         self._token = token
         self._user_catalogs = {}
-        self._updater = Updater(token=token, use_context=True)
+        self._updater = Updater(token, use_context=True)
         self._setup_handlers()
 
 
