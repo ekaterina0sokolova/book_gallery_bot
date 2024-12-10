@@ -1,5 +1,5 @@
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ConversationHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from src.book_catalog import BookCatalog, Book
@@ -25,9 +25,9 @@ class BookTelegramBot:
         add_book_handler = ConversationHandler(
             entry_points=[CommandHandler('add', self.start_add_book)],
             states={
-                1: [MessageHandler(Filters.text & ~Filters.command, self.get_book_title)],
-                2: [MessageHandler(Filters.text & ~Filters.command, self.get_book_author)],
-                3: [MessageHandler(Filters.text & ~Filters.command, self.get_book_tag)]
+                1: [MessageHandler(filters.Filters.text & ~filters.Filters.command, self.get_book_title)],
+                2: [MessageHandler(filters.Filters.text & ~filters.Filters.command, self.get_book_author)],
+                3: [MessageHandler(filters.Filters.text & ~filters.Filters.command, self.get_book_tag)]
             },
             fallbacks=[]
         )
