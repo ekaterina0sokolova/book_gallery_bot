@@ -65,7 +65,7 @@ class TestBookTelegramBot(unittest.TestCase):
 
 
     # атjnkn
-    @patch('book_catalog.BookCatalog')
+    @patch('src.book_catalog.BookCatalog')
     def test_get_book_tag_success(self, mock_book_catalog):
         mock_update = Mock()
         mock_context = Mock()
