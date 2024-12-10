@@ -240,7 +240,7 @@ class TestBookTelegramBot(unittest.TestCase):
         
         bot.book_action_handler(mock_update, mock_context)
         bot._get_user_catalog.assert_called_once_with(user_id)
-        mock_catalog.remove_book.assert_called_once_with("123")            
+        mock_catalog.remove_book.assert_called_once_with("123")           
 
 
 if __name__ == '__main__':
