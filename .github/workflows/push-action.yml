@@ -35,7 +35,7 @@ jobs:
           coverage report
           coverage xml
         env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKENN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
       - name: Submit coverage to Coveralls
         env:
