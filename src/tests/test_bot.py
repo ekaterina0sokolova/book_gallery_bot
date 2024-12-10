@@ -86,7 +86,7 @@ class TestBookTelegramBot(unittest.TestCase):
         self.assertEqual(result, ConversationHandler.END)
 
 
-    # ат
+    # аттестационный тест
     def test_get_book_tag_failure(self):
         mock_update = Mock()
         mock_context = Mock()
