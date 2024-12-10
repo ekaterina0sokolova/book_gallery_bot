@@ -1,5 +1,5 @@
-from config import BOT_TOKEN
-from bot import BookTelegramBot
+from src.config import BOT_TOKEN
+from src.bot import BookTelegramBot
 
 
 def main():

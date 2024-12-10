@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, Mock, patch
 from telegram.ext import Updater
 from src.bot import BookTelegramBot, ConversationHandler
 from src.book_catalog import BookCatalog
-from config import BOT_TOKEN
+from src.config import BOT_TOKEN
 
 
 class TestBookTelegramBot(unittest.TestCase):
